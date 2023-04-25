@@ -30,6 +30,9 @@ def create_app(test_config=None):
         clients = {}
         with open(htpasswd_path) as fp:
             for line in fp.readlines():
+                if len(line.strip()) == 0 or not ":" in line:
+                    # skip empty lines and lines that do not contain a ":"                   
+                    continue
                 username, password = line.strip().split(':')
                 clients[username] = password
     else:
